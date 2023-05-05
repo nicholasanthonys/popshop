@@ -1,0 +1,23 @@
+#==================== Building Stage=======================#
+# Create the image based on the official Node 10 image from Dockerhub
+FROM node:16-bullseye as node
+
+# Create a new directory
+RUN mkdir -p /app
+
+# Change directory so that our commands run inside this new directory
+WORKDIR /app
+
+# Copy dependency definitions
+COPY package.json package-lock.json /app/
+
+# Install dependencies using npm 
+RUN npm install
+
+# Get all the code needed to run the ap
+COPY . /app/
+
+EXPOSE 3000
+
+# Run webpack dev server
+CMD npm run start
