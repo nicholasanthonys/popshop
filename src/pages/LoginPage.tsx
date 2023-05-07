@@ -8,7 +8,7 @@ import facebook from '../assets/images/facebook.png'
 import apple from '../assets/images/apple.png'
 import google from '../assets/images/google.png'
 
-function LandingPage() {
+function LoginPage() {
   const [email, setEmail] = useState('test')
   const [password, setPassword] = useState('')
   const [emailError, setEmailError] = useState('')
@@ -58,4 +58,4 @@ function LandingPage() {
   )
 }
 
-export default LandingPage;
+export default LoginPage;

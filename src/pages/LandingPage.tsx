@@ -19,7 +19,6 @@ const LandingPage: FC = () => {
 
   return (
     <div>
-      <CustomTable />
     </div>
   )
 }

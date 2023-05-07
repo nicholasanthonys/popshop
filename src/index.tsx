@@ -10,15 +10,22 @@ import {
 import ErrorPage from './pages/ErrorPage';
 import LoginPage from './pages/LoginPage';
 import LandingPage from './pages/LandingPage';
+import Dashboard from './pages/DashboardPage';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/"
+    ,
     element: <LandingPage/>,
   },
   {
     path: "/login",
     element: <LoginPage/>,
+  },
+  {
+    path : "/dashboard",
+    element: <Dashboard/>
+
   },
   {
     path: "*",

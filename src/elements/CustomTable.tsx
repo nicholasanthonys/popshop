@@ -92,7 +92,7 @@ const CustomTable: React.FC<Props> = ({ }) => {
     }
 
     return (
-        <div className='relative h-4 bg-[#3E76FF] m-6 rounded-t-lg w-[340px]'>
+        <div className='relative h-4 bg-[#3E76FF] rounded-t-lg w-[340px]'>
             <div className="max-w-sm rounded-lg overflow-hidden shadow-lg w-[340px] absolute top-2 left-0 bg-white">
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <div className="flex items-center justify-between py-4 px-2 ">
