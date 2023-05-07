@@ -2,7 +2,6 @@
 import React, { FC, useState } from 'react'
 import InputField from '../elements/InputField';
 import CustomButton from '../elements/CustomButton';
-import Navbar from '../elements/Navbar';
 import logo from '../assets/images/logo.png';
 import facebook from '../assets/images/facebook.png'
 import apple from '../assets/images/apple.png'

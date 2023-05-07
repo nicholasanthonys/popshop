@@ -11,20 +11,21 @@ import ErrorPage from './pages/ErrorPage';
 import LoginPage from './pages/LoginPage';
 import LandingPage from './pages/LandingPage';
 import Dashboard from './pages/DashboardPage';
+import MyNav from './elements/Nav';
 
 const router = createBrowserRouter([
   {
     path: "/"
     ,
-    element: <LandingPage/>,
+    element: <LandingPage />,
   },
   {
     path: "/login",
-    element: <LoginPage/>,
+    element: <LoginPage />,
   },
   {
-    path : "/dashboard",
-    element: <Dashboard/>
+    path: "/dashboard",
+    element: <Dashboard />
 
   },
   {
@@ -38,7 +39,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-      <RouterProvider router={router} />
+    <MyNav/>
+    
+
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
