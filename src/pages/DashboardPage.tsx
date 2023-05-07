@@ -20,7 +20,7 @@ function Dashboard() {
                 </div>
                 <div className="col-span-6">
                     <div className="max-w-sm rounded-2xl overflow-hidden shadow-md flex p-4 py-4 items-center justify-between">
-                        <div className="">
+                        <div >
                             <p className='text-[#6D6E71] text-xs font-medium mb-2'>Contract Paid</p>
                             <p className='text-[#3E74FB] text-2xl font-bold'>20</p>
                         </div>
