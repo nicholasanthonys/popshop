@@ -10,14 +10,20 @@ import account from '../assets/images/account.png';
 import bell from '../assets/images/bell.png';
 import needhelp from '../assets/images/needhelp.png';
 import {
-    CheckCircleIcon,
     ChatBubbleOvalLeftEllipsisIcon,
     ArrowRightIcon
 } from "@heroicons/react/24/solid"
+import Cookie from 'js-cookie'
+import { useNavigate } from "react-router-dom";
 
 
-const MyNav = () => {
+const MyNav: React.FC = () => {
     initTE({ Sidenav, Ripple, Dropdown, Modal });
+
+    const logOut = () => {
+        Cookie.remove("isLoggedIn")
+        window.location.href="/login"
+    }
     return (
         <>
             <nav className="xl:pl-60 sticky left-0 top-0 z-50 w-full bg-white dark:bg-neutral-800">
@@ -296,9 +302,11 @@ const MyNav = () => {
                                 </div>
                             </button>
 
-                            <button className="w-full flex gap-4 px-2 py-4 shadow-sm rounded-lg items-center focus:border-[#7FC45F] hover:border-[#7FC45F]">
+                            <button className="w-full flex gap-4 px-2 py-4 shadow-sm rounded-lg items-center focus:border-[#7FC45F] hover:border-[#7FC45F]"
+                                onClick={logOut}
+                            >
                                 <div className="border rounded-md w-6 h-8 bg-red-400 relative">
-                                        <ArrowRightIcon className="absolute top-1/2  transform translate-x-1/2 -translate-y-1/2 text-[#FF4040]"/>
+                                    <ArrowRightIcon className="absolute top-1/2  transform translate-x-1/2 -translate-y-1/2 text-[#FF4040]" />
                                 </div>
                                 <div className="flex justify-start items-center gap-4">
                                     <div>
