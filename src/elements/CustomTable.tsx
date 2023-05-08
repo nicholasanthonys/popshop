@@ -39,15 +39,18 @@ const CustomTable: React.FC = () => {
             console.log("getData called with page ", currentPage, "and per page : ", perPage)
             try {
                 // const response = mockdata
-                const response = await axios.get(
-                    `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd`, {
-                    params: {
-                        page: currentPage,
-                        per_page:perPage 
-                    }
+                const response = {
+                    data : mockdata
                 }
-                );
-                const items = response.data.map(function (responseItem: Item) {
+                // const response = await axios.get(
+                //     `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd`, {
+                //     params: {
+                //         page: currentPage,
+                //         per_page:perPage 
+                //     }
+                // }
+                // );
+                const items = response.data.map(function (responseItem ) {
 
                     return {
                         id: responseItem.id,
@@ -115,10 +118,10 @@ const CustomTable: React.FC = () => {
     }
 
     return (
-        <div className='relative h-4 bg-[#3E76FF] rounded-t-lg w-[340px]'>
+        <div className='relative h-4 bg-[#3E76FF] rounded-t-lg w-[340px] sm:w-full'>
 
 
-            <div className="max-w-sm rounded-lg overflow-hidden shadow-lg w-[340px] absolute top-2 left-0 bg-white">
+            <div className="rounded-lg overflow-hidden shadow-lg w-[340px] sm:w-full absolute top-2 left-0 bg-white">
 
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <div className="flex items-center justify-between py-4 px-2 ">
@@ -145,25 +148,33 @@ const CustomTable: React.FC = () => {
 
                     </div>
 
-                    <div className="flex text-[#3E76FF] font-semibold py-3.5 border border-[#EFF4FF]">
-                        <div className="flex-none w-12">
+                    <div className="flex text-[#3E76FF] font-semibold py-3.5 border border-[#EFF4FF] sm:px-8">
+                        <div className="flex-none w-12 sm:hidden">
                         </div>
-                        <div className="flex-1 w-64 ">
+                        <div className="flex-1 w-32 sm:flex-none ">
                             Logo
                         </div>
-                        <div className="flex-1 w-32 ">
+                        <div className="flex-1 w-64 grow sm:flex-none sm:w-5/12 ">
                             Name
                         </div>
+                        <div className="hidden flex-1 w-32 sm:flex-none sm:block sm:w-72">
+                            Current Price
+                        </div>
+
+                        <div className="hidden flex-1 w-32 sm:block">
+                            Market Cap
+                        </div>
+
                     </div>
                     {data.map((item, index) => (
-                        <CollapsibleRow name={item.name} onCollapse={onCollapse} logo={item.image} id={item.id} key={item.id} currentPrice={item.current_price} marketCap={item.market_cap} isCollapsed={item.isCollapsed} className='p-3.5 border border-[#EFF4FF] hover:bg-[#EFF8FF]' idx={index} />
+                        <CollapsibleRow name={item.name} onCollapse={onCollapse} logo={item.image} id={item.id} key={item.id} currentPrice={item.current_price} marketCap={item.market_cap} isCollapsed={item.isCollapsed} className='p-3.5 border border-[#EFF4FF] hover:bg-[#EFF8FF] sm:px-8' idx={index} />
                     ))}
                 </div>
-                <div className='flex justify-between items-center text-xs my-2 text-[#6DB258] font-semibold'>
+                <div className='flex justify-between items-center text-xs my-2 text-[#3E76FF] font-semibold sm:justify-end sm:gap-32'>
                     <div className='flex justify-between'>
-                        Rows per page:
+                        Rows per page:  
 
-                        <div className="relative" data-te-dropdown-position="dropup">
+                        <div className="relative sm:ml-2" data-te-dropdown-position="dropup">
                             <button
                                 className="flex items-center"
                                 type="button"
@@ -173,7 +184,7 @@ const CustomTable: React.FC = () => {
                                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                             >
                                 <div className='flex justify-between items-center'>
-                                    <div>
+                                    <div className='sm:mr-2'>
                                         {perPage}
                                         
                                     </div>
@@ -207,7 +218,7 @@ const CustomTable: React.FC = () => {
                     <div>
                         {currentPage} of 3
                     </div>
-                    <div className='flex justify-between'>
+                    <div className='flex justify-between sm:gap-6'>
                         <div>
                             <ChevronLeftIcon className='w-4' onClick={() => onDecreasePage()} />
                         </div>

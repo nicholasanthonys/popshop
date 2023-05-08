@@ -47,23 +47,31 @@ const CollapsibleRow: React.FC<Props> = ({ className, name, logo, id, currentPri
     
                 onClick={() => onCollapse(idx)}
             >
-                <div className="flex flex-none w-8 items-center">
+                <div className="flex flex-none w-8 items-center sm:hidden">
                     <div
                         className="flex justify-center items-center rounded-full border border-[#3E75FC] p-1"
                     >
                         <ChevronDownIcon className="w-[14px] h-[14px] text-[#3E75FC]" />
                     </div>
                 </div>
-                <div className="flex-1 w-64 ">
+                <div className="flex-1 w-32  sm:flex-none ">
                     <img src={logo} className='w-[44px] h-[44px]' />
                 </div>
-                <div className="flex-1 w-32 ">
+                <div className="flex-1 w-32 sm:flex-none sm:w-5/12 ">
                     {name}
                 </div>
+                <div className="hidden flex-1 w-32 sm:flex-none sm:block sm:w-72">
+                    {formatCurrentPrice(currentPrice)}
+                </div>
+
+                <div className="hidden flex-1 w-32 sm:block">
+                {formatMarketCap(marketCap)}
+                </div>
+
             </div>
             <div
                 id={"collapse" + id}
-                className={isCollapsed ? "visible" : "hidden"}
+                className={`${isCollapsed ? "visible" : "hidden"} sm:hidden`}
                
             >
                 <div className="px-5 py-4">
