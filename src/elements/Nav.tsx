@@ -55,7 +55,7 @@ const MyNav: React.FC<props> = ({ children }) => {
                                     </span>
                                 </div>
 
-                                <div className="w-6 h-6 text-[#6D6E71]">
+                                <div className="hidden w-6 h-6 text-[#6D6E71] sm:block">
                                     <ol className="list-reset flex">
                                         <li className="">
                                             <HomeIcon className="w-6 h-6" />
