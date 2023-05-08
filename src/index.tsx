@@ -3,46 +3,12 @@ import ReactDOM from 'react-dom/client';
 import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import ErrorPage from './pages/ErrorPage';
-import LoginPage from './pages/LoginPage';
-import LandingPage from './pages/LandingPage';
-import Dashboard from './pages/DashboardPage';
-import MyNav from './elements/Nav';
-
-const router = createBrowserRouter([
-  {
-    path: "/"
-    ,
-    element: <LandingPage />,
-  },
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
-  {
-    path: "/dashboard",
-    element: <Dashboard />
-
-  },
-  {
-    path: "*",
-    element: <ErrorPage />
-  }
-]);
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <MyNav/>
-    
-
-    <RouterProvider router={router} />
+    <App/>
   </React.StrictMode>
 );
 
