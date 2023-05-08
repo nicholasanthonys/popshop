@@ -7,7 +7,7 @@ import { Navigate} from 'react-router-dom';
 import Cookies from 'js-cookie';
 function Dashboard() {
     if(!Cookies.get("isLoggedIn")){
-        return <Navigate to={"/login"} />
+        return <Navigate to={"/"} />
     }
     return (
         <div className='mx-4'>

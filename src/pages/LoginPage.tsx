@@ -86,7 +86,7 @@ function LoginPage() {
       Cookie.set("isLoggedIn", "true");
       return navigate("/dashboard")
     }
-    return navigate("/login")
+    return navigate("/")
   };
 
   return (

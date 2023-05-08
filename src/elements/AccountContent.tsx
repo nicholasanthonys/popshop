@@ -7,7 +7,7 @@ import Cookie from 'js-cookie'
 const AccountContent: React.FC = () => {
     const logOut = () => {
         Cookie.remove("isLoggedIn")
-        window.location.href = "/login"
+        window.location.href = "/"
     }
     return (
         <div>
