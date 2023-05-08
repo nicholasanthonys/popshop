@@ -1,8 +1,9 @@
 import React, { ChangeEvent, useEffect, useState, useRef } from 'react';
-import { MagnifyingGlassIcon, ChevronDownIcon, } from '@heroicons/react/24/solid'
+import { MagnifyingGlassIcon, ChevronLeftIcon, ChevronRightIcon, ChevronDownIcon, } from '@heroicons/react/24/solid'
 import {
     Collapse,
     Ripple,
+    Dropdown,
     initTE,
 } from "tw-elements";
 import CollapsibleRow from './CollapsibleRow';
@@ -19,30 +20,34 @@ interface Item {
     market_cap: number,
     isCollapsed: boolean
 }
-interface Props {
-
-}
-
-const CustomTable: React.FC<Props> = ({ }) => {
-    initTE({ Collapse, Ripple });
+const CustomTable: React.FC = () => {
+    initTE({ Collapse, Ripple, Dropdown }, true);
     const [data, setData] = useState<Item[]>([]);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
     const [isSearchExpand, setIsSearchExpand] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const [perPage, setPerPage] = useState<number>(10);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+
+
+
     useEffect(() => {
         const getData = async () => {
+            console.log("getData called with page ", currentPage, "and per page : ", perPage)
             try {
-                const response = mockdata
-                // const response = await axios.get(
-                //     `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd`, {
-                //     params: {
-                //         page: 1,
-                //         per_page: 10
-                //     }
-                // }
-                // );
-                const items = response.map(function (responseItem) {
+                // const response = mockdata
+                const response = await axios.get(
+                    `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd`, {
+                    params: {
+                        page: currentPage,
+                        per_page:perPage 
+                    }
+                }
+                );
+                const items = response.data.map(function (responseItem: Item) {
 
                     return {
                         id: responseItem.id,
@@ -65,7 +70,7 @@ const CustomTable: React.FC<Props> = ({ }) => {
             }
         };
         getData();
-    }, []);
+    }, [currentPage, perPage]);
 
     const onClickSearch = () => {
         setIsSearchExpand(true)
@@ -91,9 +96,30 @@ const CustomTable: React.FC<Props> = ({ }) => {
         setData(newData)
     }
 
+    const onChangePerPage = (perPage: number) => {
+        setPerPage(perPage)
+        setIsDropdownOpen(false)
+    }
+
+    const onIncreasePage = () => {
+        // limit page number to 3 since we don't have any information about how many pages are there
+        if (currentPage < 3) {
+            setCurrentPage(currentPage + 1)
+        }
+    }
+
+    const onDecreasePage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1)
+        }
+    }
+
     return (
         <div className='relative h-4 bg-[#3E76FF] rounded-t-lg w-[340px]'>
+
+
             <div className="max-w-sm rounded-lg overflow-hidden shadow-lg w-[340px] absolute top-2 left-0 bg-white">
+
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <div className="flex items-center justify-between py-4 px-2 ">
                         {/* <button onClick={onClickSearch}>Focus input</button> */}
@@ -130,11 +156,70 @@ const CustomTable: React.FC<Props> = ({ }) => {
                         </div>
                     </div>
                     {data.map((item, index) => (
-                        <CollapsibleRow name={item.name} onCollapse={onCollapse} logo={item.image} id={item.id} key={item.id} currentPrice={item.current_price} marketCap={item.market_cap} isCollapsed={item.isCollapsed} className='p-3.5 border border-[#EFF4FF] hover:bg-[#EFF8FF]'  idx={index}/>
+                        <CollapsibleRow name={item.name} onCollapse={onCollapse} logo={item.image} id={item.id} key={item.id} currentPrice={item.current_price} marketCap={item.market_cap} isCollapsed={item.isCollapsed} className='p-3.5 border border-[#EFF4FF] hover:bg-[#EFF8FF]' idx={index} />
                     ))}
                 </div>
+                <div className='flex justify-between items-center text-xs my-2 text-[#6DB258] font-semibold'>
+                    <div className='flex justify-between'>
+                        Rows per page:
 
+                        <div className="relative" data-te-dropdown-position="dropup">
+                            <button
+                                className="flex items-center"
+                                type="button"
+                                id="dropdownPerPage"
+                                data-te-dropdown-toggle-ref
+                                aria-expanded="false"
+                                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                            >
+                                <div className='flex justify-between items-center'>
+                                    <div>
+                                        {perPage}
+                                        
+                                    </div>
+
+                                    <ChevronDownIcon className='w-4' />
+                                </div>
+
+
+                            </button>
+                            {
+                                isDropdownOpen ?
+                                    <div className='absolute bottom-6 bg-white shadow-lg z-40 '>
+                                        <ul>
+                                            <li className='border-1 px-4 py-2 hover:bg-gray-200' onClick={() => onChangePerPage(10)}>
+                                                10
+                                            </li>
+                                            <li className='border-1 px-4 py-2 hover:bg-gray-200' onClick={() => onChangePerPage(20)}>
+                                                20
+                                            </li>
+                                            <li className='border-1 px-4 py-2 hover:bg-gray-200' onClick={() => onChangePerPage(30)}>
+                                                30
+                                            </li>
+
+                                        </ul>
+
+                                    </div> : <></>
+                            }
+
+                        </div>
+                    </div>
+                    <div>
+                        {currentPage} of 3
+                    </div>
+                    <div className='flex justify-between'>
+                        <div>
+                            <ChevronLeftIcon className='w-4' onClick={() => onDecreasePage()} />
+                        </div>
+                        <div>
+                            <ChevronRightIcon className='w-4' onClick={() => onIncreasePage()} />
+                        </div>
+
+                    </div>
+
+                </div>
             </div >
+
         </div >
     );
 };
