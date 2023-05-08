@@ -11,11 +11,11 @@ import bell from '../assets/images/bell.png';
 import needhelp from '../assets/images/needhelp.png';
 import {
     ChatBubbleOvalLeftEllipsisIcon,
-    ArrowRightIcon,
     ChevronDownIcon
 } from "@heroicons/react/24/solid"
-import Cookie from 'js-cookie'
-import { useNavigate } from "react-router-dom";
+import {
+    HomeIcon,
+} from "@heroicons/react/24/outline"
 import AccountContent from "./AccountContent";
 import { useState } from "react";
 
@@ -26,18 +26,14 @@ const MyNav: React.FC<props> = ({ children }) => {
     initTE({ Sidenav, Ripple, Dropdown, Modal });
     const [isDropdownOpen, setIsDropdownAccountOpen] = useState(false)
 
-    const logOut = () => {
-        Cookie.remove("isLoggedIn")
-        window.location.href = "/"
-    }
     return (
         <>
             <nav className="sm:pl-60 sticky left-0 top-0 z-50 w-full bg-white dark:bg-neutral-800">
                 <div className="px-3">
                     <div className="relative flex h-[58px] items-center justify-between">
                         <div className="flex  items-center sm:items-stretch sm:justify-start ">
-                            <div className="flex flex-shrink-0 ">
-                                <div id="hamburger" className="border border-[#6E98FF] rounded-full p-1 justify-center xl:hidden flex text-neutral-400"
+                            <div className="flex flex-shrink-0 items-center ">
+                                <div id="hamburger" className="border border-[#6E98FF] rounded-full p-1 justify-center flex text-neutral-400 sm:mr-4"
                                     data-te-sidenav-toggle-ref
                                     data-te-target="#sidebar"
                                     data-te-ripple-init
@@ -56,11 +52,30 @@ const MyNav: React.FC<props> = ({ children }) => {
                                     </span>
                                 </div>
 
+                                <div className="w-6 h-6 text-[#6D6E71]">
+                                    <ol className="list-reset flex">
+                                        <li className="">
+                                            <HomeIcon className="w-6 h-6" />
+                                        </li>
+                                        <li>
+                                            <span className="mx-2 ">/</span>
+                                        </li>
+                                        <li>
+                                            Dashboard
+                                        </li>
+                                        <li>
+                                            <span className="mx-2">/</span>
+                                        </li>
+                                    </ol>
+
+
+                                </div>
+
                             </div>
 
                         </div>
 
-                        <div className="w-36">
+                        <div className="w-36 sm:hidden">
                             <img src={logo} alt="logo" />
                         </div>
 
