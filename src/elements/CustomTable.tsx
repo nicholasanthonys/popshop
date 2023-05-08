@@ -36,20 +36,19 @@ const CustomTable: React.FC = () => {
 
     useEffect(() => {
         const getData = async () => {
-            console.log("getData called with page ", currentPage, "and per page : ", perPage)
             try {
-                // const response = mockdata
-                const response = {
-                    data : mockdata
-                }
-                // const response = await axios.get(
-                //     `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd`, {
-                //     params: {
-                //         page: currentPage,
-                //         per_page:perPage 
-                //     }
+                // const response = {
+                //     data : mockdata
                 // }
-                // );
+
+                const response = await axios.get(
+                    `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd`, {
+                    params: {
+                        page: currentPage,
+                        per_page:perPage 
+                    }
+                }
+                );
                 const items = response.data.map(function (responseItem ) {
 
                     return {
