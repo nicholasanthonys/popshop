@@ -24,7 +24,7 @@ function Dashboard() {
                     </div>
                 </div>
                 <div className="col-span-6 sm:col-span-2">
-                    <div className="max-w-sm rounded-2xl overflow-hidden shadow-md flex p-4 py-4 items-center justify-between">
+                    <div className="rounded-2xl overflow-hidden shadow-md flex p-4 py-4 items-center justify-between">
                         <div >
                             <p className='text-[#6D6E71] text-xs font-medium mb-2'>Contract Paid</p>
                             <p className='text-[#3E74FB] text-2xl font-bold'>20</p>
@@ -35,7 +35,7 @@ function Dashboard() {
                     </div>
                 </div>
                 <div className="col-span-3 sm:col-span-2">
-                    <div className="max-w-sm rounded-2xl overflow-hidden shadow-md flex p-4 py-4 ">
+                    <div className="rounded-2xl overflow-hidden shadow-md flex p-4 py-4 ">
                         <div>
                             <p className='text-[#6D6E71] text-xs font-medium mb-2'>Contract In Progress</p>
                             <p className='text-[#9F9F9F] text-2xl font-bold'>5</p>
@@ -44,7 +44,7 @@ function Dashboard() {
                     </div>
                 </div>
                 <div className="col-span-3 sm:col-span-2">
-                    <div className="max-w-sm rounded-2xl overflow-hidden shadow-md flex p-4 py-4 items-center justify-between">
+                    <div className="rounded-2xl overflow-hidden shadow-md flex p-4 py-4 items-center justify-between">
                         <div >
                             <p className='text-[#6D6E71] text-xs font-medium mb-2'>Contract Unpaid</p>
                             <p className='text-[#D41919] text-2xl font-bold'>2</p>

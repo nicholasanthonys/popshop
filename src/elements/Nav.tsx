@@ -11,22 +11,28 @@ import bell from '../assets/images/bell.png';
 import needhelp from '../assets/images/needhelp.png';
 import {
     ChatBubbleOvalLeftEllipsisIcon,
-    ArrowRightIcon
+    ArrowRightIcon,
+    ChevronDownIcon
 } from "@heroicons/react/24/solid"
 import Cookie from 'js-cookie'
 import { useNavigate } from "react-router-dom";
+import AccountContent from "./AccountContent";
+import { useState } from "react";
 
-
-const MyNav: React.FC = () => {
+interface props {
+    children?: React.ReactNode
+}
+const MyNav: React.FC<props> = ({ children }) => {
     initTE({ Sidenav, Ripple, Dropdown, Modal });
+    const [isDropdownOpen, setIsDropdownAccountOpen] = useState(false)
 
     const logOut = () => {
         Cookie.remove("isLoggedIn")
-        window.location.href="/login"
+        window.location.href = "/login"
     }
     return (
         <>
-            <nav className="xl:pl-60 sticky left-0 top-0 z-50 w-full bg-white dark:bg-neutral-800">
+            <nav className="sm:pl-60 sticky left-0 top-0 z-50 w-full bg-white dark:bg-neutral-800">
                 <div className="px-3">
                     <div className="relative flex h-[58px] items-center justify-between">
                         <div className="flex  items-center sm:items-stretch sm:justify-start ">
@@ -34,7 +40,6 @@ const MyNav: React.FC = () => {
                                 <div id="hamburger" className="border border-[#6E98FF] rounded-full p-1 justify-center xl:hidden flex text-neutral-400"
                                     data-te-sidenav-toggle-ref
                                     data-te-target="#sidebar"
-
                                     data-te-ripple-init
                                 >
                                     <span className="block [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-[#6E98FF]">
@@ -59,8 +64,8 @@ const MyNav: React.FC = () => {
                             <img src={logo} alt="logo" />
                         </div>
 
-                        <div className="flex items-center justify-between gap-4">
-                            <div className="relative">
+                        <div className="flex items-center justify-between gap-4 mx-4">
+                            <div className="relative sm:hidden">
                                 <img src={bell} alt="bell" className="w-6" />
                                 <div className="absolute top-0 right-0 w-2 h-2 bg-[#FF0000] rounded-full">
 
@@ -72,9 +77,63 @@ const MyNav: React.FC = () => {
                                 data-te-target="#profileModal"
                                 data-te-ripple-init
                                 data-te-ripple-color="light"
+                                className="sm:hidden"
                             >
                                 <img src={account} alt="account" />
                             </div>
+
+
+                            <div id="modal-profile-sm"
+                                className="hidden sm:block relative">
+                                <div className="flex justify-between items-center gap-6" onClick={() => setIsDropdownAccountOpen(!isDropdownOpen)}>
+                                    <div className="flex-1 flex justify-between items-center">
+                                        <img src={account} alt="account" className="mr-4" />
+                                        <div className="text-[#6D6E71]">James</div>
+                                    </div>
+                                    <ChevronDownIcon className="w-4 h-4" />
+                                </div>
+                                {isDropdownOpen ?
+                                    <div className="w-[400px] shadow-lg border rounded-xl absolute top-10 right-0 bg-white px-4 py-8 z-30 ">
+                                        <div
+                                            className="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 border-opacity-100 p-4 dark:border-opacity-50 min-[0px]:rounded-none">
+                                            <h5
+                                                className="text-xl font-medium leading-normal text-[#4C4C4C] dark:text-neutral-200"
+                                                id="profileModalLabel">
+                                                Profile
+                                            </h5>
+                                            <button
+                                                type="button"
+                                                className="box-content rounded-none border-none hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"
+                                                onClick={() => setIsDropdownAccountOpen(false)}
+                                                aria-label="Close">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    strokeWidth="1.5"
+                                                    stroke="currentColor"
+                                                    className="h-6 w-6">
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <AccountContent />
+                                    </div> : <></>
+                                }
+
+                            </div>
+
+                            <div className="hidden sm:block relative">
+                                <img src={bell} alt="bell" className="w-6" />
+                                <div className="absolute top-0 right-0 w-2 h-2 bg-[#FF0000] rounded-full">
+
+                                </div>
+                            </div>
+
+
 
 
 
@@ -123,14 +182,18 @@ const MyNav: React.FC = () => {
                         </div>
                     </div>
                 </div>
+                <div className="mx-4">
+                    {children}
+                </div>
             </nav>
 
 
 
             <nav
                 id="sidebar"
-                className="fixed left-0 top-0 z-[1035] h-screen w-60 -translate-x-full overflow-hidden bg-white shadow-[0_4px_12px_0_rgba(0,0,0,0.07),_0_2px_4px_rgba(0,0,0,0.05)] dark:bg-zinc-800 md:data-[te-sidenav-hidden='false']:translate-x-0"
+                className="fixed left-0 top-0 z-[1035] h-screen sm:h-[86vh] w-60 -translate-x-full overflow-hidden bg-white shadow-[0_4px_12px_0_rgba(0,0,0,0.07),_0_2px_4px_rgba(0,0,0,0.05)] dark:bg-zinc-800 md:data-[te-sidenav-hidden='false']:translate-x-0"
                 data-te-sidenav-init
+
                 data-te-sidenav-mode-breakpoint-over="0"
                 data-te-sidenav-mode-breakpoint-side="sm"
                 data-te-sidenav-hidden="false"
@@ -253,7 +316,8 @@ const MyNav: React.FC = () => {
                         <div className="mx-4 my-4">
                             <div className="flex gap-4  shadow-md px-2 py-4 rounded-lg">
                                 <div className="bg-[#F1F1F2] rounded-full flex justify-center items-center w-12 h-12">
-                                    C
+
+                                    <img src={account} className="w-8 h-8 rounded-full" />
                                 </div>
                                 <div>
                                     <p className="text-sm font-medium">Deny Septian</p>
