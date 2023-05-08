@@ -3,7 +3,12 @@ import React, { FC, useRef, useState } from 'react'
 import profilePict from '../assets/images/profile.png'
 import chart from '../assets/images/chart.png'
 import CustomTable from '../elements/CustomTable';
+import { Navigate} from 'react-router-dom';
+import Cookies from 'js-cookie';
 function Dashboard() {
+    if(!Cookies.get("isLoggedIn")){
+        return <Navigate to={"/login"} />
+    }
     return (
         <div className='mx-4'>
             <div className="grid grid-cols-6 gap-4">

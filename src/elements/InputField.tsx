@@ -7,13 +7,13 @@ interface Props {
   placeholder?: string;
   value?: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  error?: string;
+  error?: string | null;
   isPassword?: boolean,
   showPassword?: boolean,
   className?: string
 }
 
-const InputField: React.FC<Props> = ({ label, placeholder, value, isPassword, showPassword, onChange, className,error }) => {
+const InputField: React.FC<Props> = ({ label, placeholder, value, isPassword, showPassword, onChange, className, error }) => {
   const [isActive, setIsActive] = useState(false);
   const [isTextVisible, setIsTextVisible] = useState(false);
 
