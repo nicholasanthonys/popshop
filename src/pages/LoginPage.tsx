@@ -8,6 +8,7 @@ import apple from '../assets/images/apple.png'
 import google from '../assets/images/google.png'
 import Cookie from 'js-cookie'
 import { useNavigate } from 'react-router-dom'
+import loginImage from '../assets/images/login.png'
 
 function LoginPage() {
   const [email, setEmail] = useState('test')
@@ -90,38 +91,44 @@ function LoginPage() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className='pt-[18px] pl-[26px] pr-[27px] pb-18px'>
-        <img src={logo} className='object-contain w-157px h-51px ' />
-        <br />
+      <div className='pt-[18px] pl-[26px] pr-[27px] pb-18px '>
+        <img src={logo} className='object-contain w-157px h-51px mb-14 sm:mb-20' />
 
-        <h3 className='font-semibold text-[26px] leading-[39px]'> Sign in to</h3>
-        <h4 className='font-medium text-[21px] leading-[32px]'>Lorem Ipsum is simply  </h4>
-        <br />
-        <br />
+        <div className="sm:grid sm:grid-cols-2 sm:gap-60  sm:px-20 lg:px-32">
+          <div className="hidden sm:block sm:w-[400px] lg:w-[473px] pt-16">
+            <img src={loginImage} className='login image' />
+          </div>
+          <div className='sm:cols-span-1'>
+            <h3 className='hidden sm:block font-semibold text-[26px] leading-[39px]'> Sign In </h3>
 
-        <InputField placeholder='Email' value={email} error={emailError} onChange={handleChangeEmail} className='h-[62px]' />
-        <br />
-        <InputField placeholder='Password' value={password} error={passwordError} onChange={handleChangePassword} className='h-[62px]' isPassword />
-        <br />
-        <p className='text-right text-[#B0B0B0]'>Forgot password ?</p>
-        <br />
-        <br />
+            <h3 className='font-semibold text-[26px] leading-[39px] sm:hidden'> Sign in to</h3>
+            <h4 className='font-medium text-[21px] leading-[32px] sm:hidden'>Lorem Ipsum is simply  </h4>
+            <br />
+            <br />
 
-        <CustomButton className="h-[59px]" disabled={isButtonDisabled()} type='submit'>Login</CustomButton>
-        <br />
-        <br />
-        <p className='text-center text-[#B0B0B0]'> or continue with</p>
-        <br />
-        <div className='flex justify-center'>
-          <img src={facebook} className='mr-6' />
-          <img src={apple} className='mr-6' />
-          <img src={google} />
+            <InputField placeholder='Email' value={email} error={emailError} onChange={handleChangeEmail} className='h-[62px]' />
+            <br />
+            <InputField placeholder='Password' value={password} error={passwordError} onChange={handleChangePassword} className='h-[62px]' isPassword />
+            <br />
+            <p className='text-right text-[#B0B0B0]'>Forgot password ?</p>
+            <br />
+            <br />
+
+            <CustomButton className="h-[59px]" type='submit'>Login</CustomButton>
+            <br />
+            <br />
+            <p className='text-center text-[#B0B0B0]'> or continue with</p>
+            <br />
+            <div className='flex justify-center'>
+              <img src={facebook} className='mr-6' />
+              <img src={apple} className='mr-6' />
+              <img src={google} />
+            </div>
+            <br />
+            <br />
+            <p className='font-medium text-base text-center'>You Don’t Have Account? <span className='underline text-[#3e76ff]'>Register Here</span></p>
+          </div>
         </div>
-        <br />
-        <br />
-        <p className='font-medium text-base text-center'>You Don’t Have Account? <span className='underline text-[#3e76ff]'>Register Here</span></p>
-
-
 
 
 
