@@ -79,7 +79,6 @@ function LoginPage() {
 
 
   const handleSubmit = (event: React.FormEvent) => {
-    console.log("handle submit called")
     event.preventDefault();
     // simulate login validation
     if (!emailError && !passwordError) {
