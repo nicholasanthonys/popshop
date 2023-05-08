@@ -12,8 +12,8 @@ function Dashboard() {
     return (
         <div className='mx-4'>
             <div className="grid grid-cols-6 gap-4">
-                <div className="col-span-6">
-                    <div className="max-w-sm rounded-2xl overflow-hidden shadow-md flex p-4 py-4 items-center gap-6">
+                <div className="col-span-6 sm:col-span-6">
+                    <div className="rounded-2xl overflow-hidden shadow-md flex p-4 py-4 items-center gap-6">
                         <div className="flex-none">
                             <img className="w-full rounded-lg" src={profilePict} alt="profile picture" />
                         </div>
@@ -23,7 +23,7 @@ function Dashboard() {
                         </div>
                     </div>
                 </div>
-                <div className="col-span-6">
+                <div className="col-span-6 sm:col-span-2">
                     <div className="max-w-sm rounded-2xl overflow-hidden shadow-md flex p-4 py-4 items-center justify-between">
                         <div >
                             <p className='text-[#6D6E71] text-xs font-medium mb-2'>Contract Paid</p>
@@ -34,7 +34,7 @@ function Dashboard() {
                         </div>
                     </div>
                 </div>
-                <div className="col-span-3">
+                <div className="col-span-3 sm:col-span-2">
                     <div className="max-w-sm rounded-2xl overflow-hidden shadow-md flex p-4 py-4 ">
                         <div>
                             <p className='text-[#6D6E71] text-xs font-medium mb-2'>Contract In Progress</p>
@@ -43,7 +43,7 @@ function Dashboard() {
                         </div>
                     </div>
                 </div>
-                <div className="col-span-3">
+                <div className="col-span-3 sm:col-span-2">
                     <div className="max-w-sm rounded-2xl overflow-hidden shadow-md flex p-4 py-4 items-center justify-between">
                         <div >
                             <p className='text-[#6D6E71] text-xs font-medium mb-2'>Contract Unpaid</p>
@@ -51,7 +51,7 @@ function Dashboard() {
                         </div>
                     </div>
                 </div>
-                <div className="col-span-6 justify-center flex">
+                <div className="col-span-6 justify-center flex w-full">
                     <CustomTable />
                 </div>
             </div>
