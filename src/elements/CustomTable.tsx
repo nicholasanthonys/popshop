@@ -45,11 +45,11 @@ const CustomTable: React.FC = () => {
                     `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd`, {
                     params: {
                         page: currentPage,
-                        per_page:perPage 
+                        per_page: perPage
                     }
                 }
                 );
-                const items = response.data.map(function (responseItem ) {
+                const items = response.data.map(function (responseItem: Item) {
 
                     return {
                         id: responseItem.id,
@@ -171,7 +171,7 @@ const CustomTable: React.FC = () => {
                 </div>
                 <div className='flex justify-between items-center text-xs my-2 text-[#3E76FF] font-semibold sm:justify-end sm:gap-32'>
                     <div className='flex justify-between'>
-                        Rows per page:  
+                        Rows per page:
 
                         <div className="relative sm:ml-2" data-te-dropdown-position="dropup">
                             <button
@@ -185,7 +185,7 @@ const CustomTable: React.FC = () => {
                                 <div className='flex justify-between items-center'>
                                     <div className='sm:mr-2'>
                                         {perPage}
-                                        
+
                                     </div>
 
                                     <ChevronDownIcon className='w-4' />
