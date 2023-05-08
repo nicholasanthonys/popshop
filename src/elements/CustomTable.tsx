@@ -9,6 +9,7 @@ import {
 import CollapsibleRow from './CollapsibleRow';
 import axios from 'axios';
 import mockdata from './mockdata.json'
+import { useAppSelector } from '../store/hook';
 
 
 
@@ -37,19 +38,19 @@ const CustomTable: React.FC = () => {
     useEffect(() => {
         const getData = async () => {
             try {
-                // const response = {
-                //     data : mockdata
-                // }
-
-                const response = await axios.get(
-                    `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd`, {
-                    params: {
-                        page: currentPage,
-                        per_page: perPage
-                    }
+                const response = {
+                    data : mockdata
                 }
-                );
-                const items = response.data.map(function (responseItem: Item) {
+
+                // const response = await axios.get(
+                //     `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd`, {
+                //     params: {
+                //         page: currentPage,
+                //         per_page: perPage
+                //     }
+                // }
+                // );
+                const items = response.data.map(function (responseItem ) {
 
                     return {
                         id: responseItem.id,
@@ -115,39 +116,40 @@ const CustomTable: React.FC = () => {
             setCurrentPage(currentPage - 1)
         }
     }
+    const currentTheme = useAppSelector((state) => state.theme.value)
+
 
     return (
-        <div className='relative h-4 bg-[#3E76FF] rounded-t-lg w-[340px] sm:w-full'>
-
+        <div className={`relative h-4 ${currentTheme == 'green' ? 'bg-[#90C781]' : 'bg-[#3E76FF]'} green:bg-green-500 rounded-t-lg w-[340px] sm:w-full`}>
 
             <div className="rounded-lg overflow-hidden shadow-lg w-[340px] sm:w-full absolute top-2 left-0 bg-white">
 
                 <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    <div className="flex items-center justify-between py-4 px-2 ">
-                        {/* <button onClick={onClickSearch}>Focus input</button> */}
+                    <div className="flex items-center justify-between py-4 px-2 sm:px-8  ">
 
-                        <p className={isSearchExpand ? "hidden" : "visible"}>Cryptocurrency </p>
-                        <div className={`border border-[#BDBCBC] rounded-lg p-2 ${isSearchExpand ? 'hidden' : 'visible'}`}
+                        <p className={`${isSearchExpand ? "hidden" : "visible"} sm:text-lg text-[#323A46]`}>Cryptocurrency </p>
+                        <div className={`border border-[#BDBCBC] rounded-lg p-2 ${isSearchExpand ? 'hidden' : 'visible'} sm:hidden`}
                             onClick={onClickSearch}
                         >
-                            <MagnifyingGlassIcon className="h-5 w-5 text-[#3E76FF]" />
+                            <MagnifyingGlassIcon className={`h-5 w-5  ${currentTheme == 'green' ? 'text-[#90C781]' : 'text-[#3E76FF]'}`} />
                         </div>
 
-                        <div className={`relative mt-1 ${isSearchExpand ? "visible" : "hidden"}`}
+                        <div className={`relative mt-1 ${isSearchExpand ? "visible" : "hidden"} sm:visible sm:block `}
                         >
                             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <MagnifyingGlassIcon className="h-5 w-5 text-[#3E76FF]" />
+                                <MagnifyingGlassIcon className={`h-5 w-5 ${currentTheme == 'green' ? 'text-[#90C781]' : 'text-[#3E76FF]'}`} />
                             </div>
                             <input type="text" id="table-search" className="block text-sm p-2 pl-10 text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 name="search"
                                 ref={inputRef}
                                 onBlur={onLoseFocus}
+                                placeholder='Search'
                             />
                         </div>
 
                     </div>
 
-                    <div className="flex text-[#3E76FF] font-semibold py-3.5 border border-[#EFF4FF] sm:px-8">
+                    <div className={`flex font-semibold py-3.5 border border-[#EFF4FF] sm:px-8 ${currentTheme == 'green' ? 'text-[#90C781]' : 'text-[#3E76FF]'}`}>
                         <div className="flex-none w-12 sm:hidden">
                         </div>
                         <div className="flex-1 w-32 sm:flex-none ">
@@ -166,10 +168,10 @@ const CustomTable: React.FC = () => {
 
                     </div>
                     {data.map((item, index) => (
-                        <CollapsibleRow name={item.name} onCollapse={onCollapse} logo={item.image} id={item.id} key={item.id} currentPrice={item.current_price} marketCap={item.market_cap} isCollapsed={item.isCollapsed} className='p-3.5 border border-[#EFF4FF] hover:bg-[#EFF8FF] sm:px-8' idx={index} />
+                        <CollapsibleRow name={item.name} onCollapse={onCollapse} logo={item.image} id={item.id} key={item.id} currentPrice={item.current_price} marketCap={item.market_cap} isCollapsed={item.isCollapsed} className={`p-3.5 border ${currentTheme == 'green' ? 'hover:bg-[#EDFFE8]' : 'hover:bg-[#EFF8FF]'} border-[#EFF4FF]  sm:px-8`} idx={index} />
                     ))}
                 </div>
-                <div className='flex justify-between items-center text-xs my-2 text-[#3E76FF] font-semibold sm:justify-end sm:gap-32'>
+                <div className={`flex justify-between items-center text-xs my-2 font-semibold sm:justify-end sm:gap-32 ${currentTheme == 'green' ? 'text-[#90C781]' : 'text-[#3E76FF]'}`}>
                     <div className='flex justify-between'>
                         Rows per page:
 

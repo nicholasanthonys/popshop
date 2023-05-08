@@ -3,12 +3,16 @@ import React, { FC, useRef, useState } from 'react'
 import profilePict from '../assets/images/profile.png'
 import chart from '../assets/images/chart.png'
 import CustomTable from '../elements/CustomTable';
-import { Navigate} from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { useAppSelector } from '../store/hook';
 function Dashboard() {
-    if(!Cookies.get("isLoggedIn")){
+
+    const currentTheme = useAppSelector((state) => state.theme.value)
+    if (!Cookies.get("isLoggedIn")) {
         return <Navigate to={"/"} />
     }
+
     return (
         <div className='mx-4'>
             <div className="grid grid-cols-6 gap-4">
@@ -27,9 +31,9 @@ function Dashboard() {
                     <div className="rounded-2xl overflow-hidden shadow-md flex p-4 py-4 items-center justify-between">
                         <div >
                             <p className='text-[#6D6E71] text-xs font-medium mb-2'>Contract Paid</p>
-                            <p className='text-[#3E74FB] text-2xl font-bold'>20</p>
+                            <p className={`${currentTheme == 'green' ? 'text-[#6EB659]': 'text-[#3E74FB]'} text-2xl font-bold`}>20</p>
                         </div>
-                        <div className='h-14 w-14 bg-gradient-to-r from-cyan-500 to-blue-500 flex justify-center items-center rounded-lg'>
+                        <div className={`h-14 w-14 bg-gradient-to-r  ${currentTheme == 'green' ? 'from-green-900 to-green-500': 'from-cyan-500 to-blue-500'} flex justify-center items-center rounded-lg`}>
                             <img src={chart} alt='chart' className='m-auto' />
                         </div>
                     </div>

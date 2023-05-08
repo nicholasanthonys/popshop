@@ -18,6 +18,7 @@ import {
 } from "@heroicons/react/24/outline"
 import AccountContent from "./AccountContent";
 import { useState } from "react";
+import { useAppSelector } from "../store/hook";
 
 interface props {
     children?: React.ReactNode
@@ -25,6 +26,8 @@ interface props {
 const MyNav: React.FC<props> = ({ children }) => {
     initTE({ Sidenav, Ripple, Dropdown, Modal });
     const [isDropdownOpen, setIsDropdownAccountOpen] = useState(false)
+    const currenTheme = useAppSelector((state) => state.theme.value)
+
 
     return (
         <>
@@ -33,12 +36,12 @@ const MyNav: React.FC<props> = ({ children }) => {
                     <div className="relative flex h-[58px] items-center justify-between">
                         <div className="flex  items-center sm:items-stretch sm:justify-start ">
                             <div className="flex flex-shrink-0 items-center ">
-                                <div id="hamburger" className="border border-[#6E98FF] rounded-full p-1 justify-center flex text-neutral-400 sm:mr-4"
+                                <div id="hamburger" className={`border ${currenTheme == "green" ? "border-[#6EB659]" : "border-[#6E98FF]"} rounded-full p-1 justify-center flex text-neutral-400 sm:mr-4`}
                                     data-te-sidenav-toggle-ref
                                     data-te-target="#sidebar"
                                     data-te-ripple-init
                                 >
-                                    <span className="block [&>svg]:h-5 [&>svg]:w-5 [&>svg]:text-[#6E98FF]">
+                                    <span className={`block [&>svg]:h-5 [&>svg]:w-5  ${currenTheme == "green" ? "[&>svg]:text-[#6EB659]" : "[&>svg]:text-[#6E98FF]"}`}>
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 24 24"
@@ -147,53 +150,6 @@ const MyNav: React.FC<props> = ({ children }) => {
 
                                 </div>
                             </div>
-
-
-
-
-
-
-                            {/* for desktop use dropdown*/}
-                            {/* <div className="relative" data-te-dropdown-ref>
-                                <img src={account} alt="account"
-                                    className="flex items-center whitespace-nowrap rounded  transition  ease-in-out"
-                                    id="dropdownMenuButton1"
-                                    data-te-dropdown-toggle-ref
-                                    data-te-dropdown-position="dropstart"
-                                    aria-expanded="false"
-                                    data-te-ripple-init
-                                    data-te-ripple-color="light"/>
-                                <ul
-                                    className="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"
-                                    aria-labelledby="dropdownMenuButton1"
-                                    data-te-dropdown-menu-ref>
-                                    <li>
-                                        <a
-                                            className="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-                                            href="#"
-                                            data-te-dropdown-item-ref
-                                        >Action</a
-                                        >
-                                    </li>
-                                    <li>
-                                        <a
-                                            className="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-                                            href="#"
-                                            data-te-dropdown-item-ref
-                                        >Another action</a
-                                        >
-                                    </li>
-                                    <li>
-                                        <a
-                                            className="block w-full whitespace-nowrap bg-transparent px-4 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600"
-                                            href="#"
-                                            data-te-dropdown-item-ref
-                                        >Something else here</a
-                                        >
-                                    </li>
-                                </ul>
-                            </div> */}
-
                         </div>
                     </div>
                 </div>
@@ -221,8 +177,8 @@ const MyNav: React.FC<props> = ({ children }) => {
                     </div>
                 </div>
                 <div className="mx-2 py-4 px-2 relative">
-                    <div className="flex items-center gap-2 hover:bg-[#EFF8FF] rounded-lg px-4 py-2">
-                        <div className='w-[40px] h-[40px] bg-[#3E76FF] flex justify-center items-center rounded-lg'>
+                    <div className={`flex items-center gap-2  rounded-lg px-4 py-2 ${currenTheme == "green" ? 'hover:bg-[#EDFFE8]' : 'hover:bg-[#EFF8FF]'}`}>
+                        <div className={`w-[40px] h-[40px] flex justify-center items-center rounded-lg ${currenTheme == "green" ? 'bg-[#6EB659]' : 'bg-[#3E76FF]'}`}>
                             <div >
                                 <div className="flex justify-between gap-1 mb-1">
                                     <div className="w-2 h-2 bg-white rounded-sm">
@@ -264,7 +220,7 @@ const MyNav: React.FC<props> = ({ children }) => {
                                 <img src={needhelp} />
                             </div>
 
-                            <div className="absolute bg-gradient-to-r from-blue-400 to-blue-900 opacity-[0.4] w-[180px] h-[166px] top-0 z-10 flex justify-center py-4 rounded-lg">
+                            <div className={`absolute bg-gradient-to-r  opacity-[0.4] w-[180px] h-[166px] top-0 z-10 flex justify-center py-4 rounded-lg ${currenTheme == "green" ? 'from-green-400 to-green-900' : 'from-blue-400 to-blue-900'}`}>
                                 <div className="text-center w-full px-4">
                                     <div className="flex justify-center mb-4">
                                         <div className="rounded-md bg-white flex justify-center items-center w-8 h-8">
@@ -275,7 +231,7 @@ const MyNav: React.FC<props> = ({ children }) => {
                                     <p className="text-white text-xs">Please Reach on</p>
                                     <br />
                                     <div className="text-center bg-white w-full py-1 rounded-md">
-                                        <p className="text-[#3E76FF] font-bold">DETAILS</p>
+                                        <p className={`${currenTheme == "green" ? 'text-[#6EB659]' : 'text-[#3E76FF]'} font-bold`}>DETAILS</p>
                                     </div>
                                 </div>
 
