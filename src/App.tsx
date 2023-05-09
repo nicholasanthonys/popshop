@@ -1,10 +1,17 @@
 import './App.scss';
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import ErrorPage from './pages/ErrorPage';
 import LoginPage from './pages/LoginPage';
 import Dashboard from './pages/DashboardPage';
 import MyNav from './elements/Nav';
+import {
+  Sidenav,
+  initTE,
+} from "tw-elements";
+
+
+
 
 
 const routes = [
@@ -29,6 +36,11 @@ const routes = [
 
 
 const App = () => {
+
+  useEffect(() => {
+    initTE({ Sidenav });
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -41,8 +53,6 @@ const App = () => {
                   <MyNav>
                     {route.element}
                   </MyNav>
-
-
                 </>} />
               </React.Fragment>
             );
