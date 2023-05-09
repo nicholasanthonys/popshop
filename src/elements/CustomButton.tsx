@@ -1,13 +1,11 @@
-import React, { ChangeEvent, useState } from 'react';
+import React from "react";
 
-
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-};
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 const CustomButton: React.FC<ButtonProps> = ({
   onClick,
   disabled = false,
-  className = '',
+  className = "",
   children,
   type = "submit",
 }) => {
