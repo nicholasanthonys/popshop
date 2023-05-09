@@ -90,7 +90,7 @@ function LoginPage() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='bg-white h-full'>
       <div className='pt-[18px] pl-[26px] pr-[27px] pb-18px '>
         <img src={logo} className='object-contain w-157px h-51px mb-14 sm:mb-20' />
 
