@@ -6,6 +6,7 @@ import {
     Modal
 } from "tw-elements";
 import logo from '../assets/images/logo.png';
+import logoSlim from '../assets/images/logo-slim.png';
 import account from '../assets/images/account.png';
 import bell from '../assets/images/bell.png';
 import needhelp from '../assets/images/needhelp.png';
@@ -17,16 +18,30 @@ import {
     HomeIcon,
 } from "@heroicons/react/24/outline"
 import AccountContent from "./AccountContent";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppSelector } from "../store/hook";
 
 interface props {
     children?: React.ReactNode
 }
 const MyNav: React.FC<props> = ({ children }) => {
-    initTE({ Sidenav, Ripple, Dropdown, Modal });
+   
+
     const [isDropdownOpen, setIsDropdownAccountOpen] = useState(false)
-    const currenTheme = useAppSelector((state) => state.theme.value)
+    const [isSidebarSlim, setIsSidebarSlim] = useState(false)
+
+    const currentTheme = useAppSelector((state) => state.theme.value)
+    const navRef = useRef<HTMLElement>(null);
+
+    useEffect(() => {
+        initTE({ Sidenav, Ripple, Dropdown, Modal });
+      }, []);
+      
+
+    const toggleSlipSidebar = () => {
+       
+        setIsSidebarSlim(!isSidebarSlim)
+    }
 
 
     return (
@@ -36,12 +51,29 @@ const MyNav: React.FC<props> = ({ children }) => {
                     <div className="relative flex h-[58px] items-center justify-between">
                         <div className="flex  items-center sm:items-stretch sm:justify-start ">
                             <div className="flex flex-shrink-0 items-center ">
-                                <div id="hamburger" className={`border ${currenTheme == "green" ? "border-[#6EB659]" : "border-[#6E98FF]"} rounded-full p-1 justify-center flex text-neutral-400 sm:mr-4`}
+                                <div id="hamburger" className={`border ${currentTheme == "green" ? "border-[#6EB659]" : "border-[#6E98FF]"} rounded-full p-1 justify-center flex text-neutral-400 sm:mr-4 sm:hidden`}
                                     data-te-sidenav-toggle-ref
                                     data-te-target="#sidebar"
                                     data-te-ripple-init
                                 >
-                                    <span className={`block [&>svg]:h-5 [&>svg]:w-5  ${currenTheme == "green" ? "[&>svg]:text-[#6EB659]" : "[&>svg]:text-[#6E98FF]"}`}>
+                                    <span className={`block [&>svg]:h-5 [&>svg]:w-5  ${currentTheme == "green" ? "[&>svg]:text-[#6EB659]" : "[&>svg]:text-[#6E98FF]"}`}>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="currentColor"
+                                            className="h-5 w-5">
+                                            <path
+                                                fillRule="evenodd"
+                                                d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
+                                                clipRule="evenodd" />
+                                        </svg>
+                                    </span>
+                                </div>
+
+                                <div id="hamburger-slim-toggler" className={`hidden sm:block border ${currentTheme == "green" ? "border-[#6EB659]" : "border-[#6E98FF]"} rounded-full p-1 justify-center flex text-neutral-400 sm:mr-4`}
+                                    onClick={() => toggleSlipSidebar()}
+                                >
+                                    <span className={`block [&>svg]:h-5 [&>svg]:w-5  ${currentTheme == "green" ? "[&>svg]:text-[#6EB659]" : "[&>svg]:text-[#6E98FF]"}`}>
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 24 24"
@@ -161,66 +193,85 @@ const MyNav: React.FC<props> = ({ children }) => {
 
 
             <nav
+                ref={navRef}
                 id="sidebar"
-                className="fixed left-0 top-0 z-[1035] h-screen sm:h-[86vh] w-60 -translate-x-full overflow-hidden bg-white shadow-[0_4px_12px_0_rgba(0,0,0,0.07),_0_2px_4px_rgba(0,0,0,0.05)] dark:bg-zinc-800 md:data-[te-sidenav-hidden='false']:translate-x-0"
+                className={`${isSidebarSlim ? '!w-[77px]' : 'w-60'} fixed left-0 top-0 z-[1035] h-screen sm:h-[86vh] sm:translate-x-0 -translate-x-full overflow-hidden bg-white shadow-[0_4px_12px_0_rgba(0,0,0,0.07),_0_2px_4px_rgba(0,0,0,0.05)] dark:bg-zinc-800 md:data-[te-sidenav-hidden='false']:translate-x-0`}
                 data-te-sidenav-init
-
                 data-te-sidenav-mode-breakpoint-over="0"
                 data-te-sidenav-mode-breakpoint-side="sm"
                 data-te-sidenav-hidden="false"
                 data-te-sidenav-color="dark"
-                data-te-sidenav-content="#content">
+                data-te-sidenav-content="#content"
+
+            >
 
                 <div className="flex justify-center">
-                    <div className="w-36 " >
-                        <img src={logo} alt="logo" />
-                    </div>
+                    {isSidebarSlim ?
+
+                        <div className="w-36 flex justify-center " >
+                            <img src={logoSlim} alt="logo" />
+                        </div>
+
+                        :
+
+                        <div className="w-36 " >
+                            <img src={logo} alt="logo" />
+                        </div>
+
+                    }
                 </div>
-                <div className="mx-2 py-4 px-2 relative">
-                    <div className={`flex items-center gap-2  rounded-lg px-4 py-2 ${currenTheme == "green" ? 'hover:bg-[#EDFFE8]' : 'hover:bg-[#EFF8FF]'}`}>
-                        <div className={`w-[40px] h-[40px] flex justify-center items-center rounded-lg ${currenTheme == "green" ? 'bg-[#6EB659]' : 'bg-[#3E76FF]'}`}>
-                            <div >
-                                <div className="flex justify-between gap-1 mb-1">
-                                    <div className="w-2 h-2 bg-white rounded-sm">
+                <div data-te-sidenav-link-ref>
+
+
+                    <div className="mx-2 py-4 px-2 relative" >
+                        <div className={`flex items-center gap-2  rounded-lg py-2 ${currentTheme == "green" ? 'hover:bg-[#EDFFE8]' : 'hover:bg-[#EFF8FF]'}`}>
+                            <div className={`w-[40px] h-[40px] flex justify-center items-center rounded-lg ${currentTheme == "green" ? 'bg-[#6EB659]' : 'bg-[#3E76FF]'}`}>
+                                <div >
+                                    <div className="flex justify-between gap-1 mb-1">
+                                        <div className="w-2 h-2 bg-white rounded-sm">
+                                        </div>
+                                        <div className="w-2 h-2 bg-white opacity-[0.4] rounded-sm">
+                                        </div>
                                     </div>
-                                    <div className="w-2 h-2 bg-white opacity-[0.4] rounded-sm">
-                                    </div>
-                                </div>
-                                <div className="flex justify-between gap-1">
-                                    <div className="w-2 h-2 bg-white rounded-sm">
-                                    </div>
-                                    <div className="w-2 h-2 bg-white rounded-sm">
+                                    <div className="flex justify-between gap-1">
+                                        <div className="w-2 h-2 bg-white rounded-sm">
+                                        </div>
+                                        <div className="w-2 h-2 bg-white rounded-sm">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="text-[#6D6E71] font-medium">
-                            Dashboards
+                            <div className={`text-[#6D6E71] ${isSidebarSlim ? 'hidden' : ''} `}>
+                                Dashboards
+                            </div>
                         </div>
                     </div>
-                    <div className="text-[#6D6E71] font-bold my-4">
+                    <div className={`text-[#6D6E71] font-bold mx-4 my-4 ${isSidebarSlim ? 'hidden' : ''}`}>
                         <p>Pages</p>
                     </div>
-                    <div className="flex items-center gap-2 hover:bg-[#EFF8FF] rounded-lg px-4 py-2">
-                        <div className='w-[40px] h-[40px]  flex justify-center items-center rounded-lg shadow'>
-                            <ChatBubbleOvalLeftEllipsisIcon className="text-gray-400 w-6" />
+                    <div data-te-sidenav-link-ref>
 
-                        </div>
-                        <div className="text-[#6D6E71] font-medium">
-                            Settings
+                        <div className="flex items-center gap-2 hover:bg-[#EFF8FF] rounded-lg px-4 py-2">
+                            <div className='w-[40px] h-[40px]  flex justify-center items-center rounded-lg shadow'>
+                                <ChatBubbleOvalLeftEllipsisIcon className="text-gray-400 w-6" />
+
+                            </div>
+                            <div className={`text-[#6D6E71] font-medium ${isSidebarSlim ? 'hidden' : ''}`}>
+                                Settings
+                            </div>
                         </div>
                     </div>
 
 
                 </div>
-                <div className="m-4">
+                <div className={`m-4 ${isSidebarSlim ? 'hidden' : ''}`}>
                     <div className="absolute bottom-10">
                         <div className="relative mx-4">
                             <div className="w-[180px] h-[166px] rounded-lg">
                                 <img src={needhelp} />
                             </div>
 
-                            <div className={`absolute bg-gradient-to-r  opacity-[0.4] w-[180px] h-[166px] top-0 z-10 flex justify-center py-4 rounded-lg ${currenTheme == "green" ? 'from-green-400 to-green-900' : 'from-blue-400 to-blue-900'}`}>
+                            <div className={`absolute bg-gradient-to-r  opacity-[0.4] w-[180px] h-[166px] top-0 z-10 flex justify-center py-4 rounded-lg ${currentTheme == "green" ? 'from-green-400 to-green-900' : 'from-blue-400 to-blue-900'}`}>
                                 <div className="text-center w-full px-4">
                                     <div className="flex justify-center mb-4">
                                         <div className="rounded-md bg-white flex justify-center items-center w-8 h-8">
@@ -231,7 +282,7 @@ const MyNav: React.FC<props> = ({ children }) => {
                                     <p className="text-white text-xs">Please Reach on</p>
                                     <br />
                                     <div className="text-center bg-white w-full py-1 rounded-md">
-                                        <p className={`${currenTheme == "green" ? 'text-[#6EB659]' : 'text-[#3E76FF]'} font-bold`}>DETAILS</p>
+                                        <p className={`${currentTheme == "green" ? 'text-[#6EB659]' : 'text-[#3E76FF]'} font-bold`}>DETAILS</p>
                                     </div>
                                 </div>
 
