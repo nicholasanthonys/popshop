@@ -18,74 +18,148 @@ import {
     HomeIcon,
 } from "@heroicons/react/24/outline"
 import AccountContent from "./AccountContent";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useAppSelector } from "../store/hook";
 
 interface props {
     children?: React.ReactNode
 }
+
+
 const MyNav: React.FC<props> = ({ children }) => {
-
-
     const [isDropdownOpen, setIsDropdownAccountOpen] = useState(false)
     const [isSidebarSlim, setIsSidebarSlim] = useState(false)
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 640);
 
     const currentTheme = useAppSelector((state) => state.theme.value)
     const navRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
         initTE({ Sidenav, Ripple, Dropdown, Modal });
+        document
+            .getElementById("hamburger")?.addEventListener("click", () => {
+                console.log("clicked")
+                const instance = Sidenav.getInstance(
+                    document.getElementById("sidebar")
+                );
+                console.log("hamburger instance : ", instance)
+                instance.toggle();
+            });
+
     }, []);
 
 
-    const toggleSlipSidebar = () => {
 
+
+    useEffect(() => {
+        function handleResize() {
+            if (window.innerWidth < 640) {
+                initTE({ Sidenav, Ripple, Dropdown, Modal });
+                document
+                    .getElementById("hamburger")?.addEventListener("click", () => {
+                        console.log("clicked")
+                        const instance = Sidenav.getInstance(
+                            document.getElementById("sidebar")
+                        );
+                        console.log("hamburger instance : ", instance)
+                        instance.toggle();
+                    });
+
+                setIsMobile(true)
+                setIsSidebarSlim(false)
+
+            } else {
+                setIsMobile(false)
+                setIsSidebarSlim(false)
+                if (navRef.current) {
+                    navRef.current.style.transform = "none !important"
+                }
+
+            }
+        }
+
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, [window.innerWidth]);
+
+
+    const toggleSlipSidebar = () => {
         setIsSidebarSlim(!isSidebarSlim)
+        if (isSidebarSlim) {
+            if (navRef.current) {
+                navRef.current.style.transform = "translateX(0%) !important"
+            }
+        }
+
+    }
+
+    const determineSidebarClass = () => {
+        let className = `fixed left-0 top-0 z-[1035] h-screen sm:h-[86vh]  sm:overflow-hidden bg-white shadow-[0_4px_12px_0_rgba(0,0,0,0.07),_0_2px_4px_rgba(0,0,0,0.05)] dark:bg-zinc-800 md:data-[te-sidenav-hidden='false']:translate-x-0`
+        if (!isMobile) {
+            console.log("not mobile")
+            if (isSidebarSlim) {
+                className += ' !w-[77px]'
+
+            } else {
+                className += ' w-60'
+            }
+            className += ' sm:!translate-x-0 '
+        } else {
+            className += ' -translate-x-full'
+        }
+        return className
+
     }
 
 
     return (
         <>
-            <nav className="sm:pl-60 sticky left-0 top-0 z-50 w-full bg-white dark:bg-neutral-800">
+            <nav className={`${isSidebarSlim ? 'sm:pl-20' : 'sm:pl-60 '} sticky left-0 top-0 z-50 w-full bg-white dark:bg-neutral-800`}>
+
                 <div className="px-3">
                     <div className="relative flex h-[58px] items-center justify-between">
                         <div className="flex  items-center sm:items-stretch sm:justify-start ">
                             <div className="flex flex-shrink-0 items-center ">
-                                <div id="hamburger" className={`border ${currentTheme == "green" ? "border-[#6EB659]" : "border-[#6E98FF]"} rounded-full p-1 justify-center flex text-neutral-400 sm:mr-4 sm:hidden`}
-                                    data-te-sidenav-toggle-ref
-                                    data-te-target="#sidebar"
-                                    data-te-ripple-init
-                                >
-                                    <span className={`block [&>svg]:h-5 [&>svg]:w-5  ${currentTheme == "green" ? "[&>svg]:text-[#6EB659]" : "[&>svg]:text-[#6E98FF]"}`}>
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24"
-                                            fill="currentColor"
-                                            className="h-5 w-5">
-                                            <path
-                                                fillRule="evenodd"
-                                                d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
-                                                clipRule="evenodd" />
-                                        </svg>
-                                    </span>
-                                </div>
+                                {!isMobile ?
+                                    <div id="hamburger-slim-toggler" className={`hidden sm:block border ${currentTheme == "green" ? "border-[#6EB659]" : "border-[#6E98FF]"} rounded-full p-1 justify-center flex text-neutral-400 sm:mr-4`}
+                                        onClick={() => toggleSlipSidebar()}
+                                    >
+                                        <span className={`block [&>svg]:h-5 [&>svg]:w-5  ${currentTheme == "green" ? "[&>svg]:text-[#6EB659]" : "[&>svg]:text-[#6E98FF]"}`}>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                fill="currentColor"
+                                                className="h-5 w-5">
+                                                <path
+                                                    fillRule="evenodd"
+                                                    d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
+                                                    clipRule="evenodd" />
+                                            </svg>
+                                        </span>
+                                    </div> :
 
-                                <div id="hamburger-slim-toggler" className={`hidden sm:block border ${currentTheme == "green" ? "border-[#6EB659]" : "border-[#6E98FF]"} rounded-full p-1 justify-center flex text-neutral-400 sm:mr-4`}
-                                    onClick={() => toggleSlipSidebar()}
-                                >
-                                    <span className={`block [&>svg]:h-5 [&>svg]:w-5  ${currentTheme == "green" ? "[&>svg]:text-[#6EB659]" : "[&>svg]:text-[#6E98FF]"}`}>
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 24 24"
-                                            fill="currentColor"
-                                            className="h-5 w-5">
-                                            <path
-                                                fillRule="evenodd"
-                                                d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
-                                                clipRule="evenodd" />
-                                        </svg>
-                                    </span>
-                                </div>
+                                    <div id="hamburger" className={`border ${currentTheme == "green" ? "border-[#6EB659]" : "border-[#6E98FF]"} rounded-full p-1 justify-center flex text-neutral-400 sm:mr-4 sm:hidden`}
+                                        data-te-sidenav-toggle-ref
+                                        data-te-target="#sidebar"
+                                        data-te-ripple-init
+                                    >
+                                        <span className={`block [&>svg]:h-5 [&>svg]:w-5  ${currentTheme == "green" ? "[&>svg]:text-[#6EB659]" : "[&>svg]:text-[#6E98FF]"}`}>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                fill="currentColor"
+                                                className="h-5 w-5">
+                                                <path
+                                                    fillRule="evenodd"
+                                                    d="M3 6.75A.75.75 0 013.75 6h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 6.75zM3 12a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75A.75.75 0 013 12zm0 5.25a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75z"
+                                                    clipRule="evenodd" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                }
+
+
+
 
                                 <div className="hidden w-6 h-6 text-[#6D6E71] sm:block">
                                     <ol className="list-reset flex">
@@ -195,13 +269,19 @@ const MyNav: React.FC<props> = ({ children }) => {
             <nav
                 ref={navRef}
                 id="sidebar"
-                className={`${isSidebarSlim ? '!w-[77px]' : 'w-60'} fixed left-0 top-0 z-[1035] h-screen sm:h-[86vh] sm:translate-x-0 -translate-x-full overflow-hidden bg-white shadow-[0_4px_12px_0_rgba(0,0,0,0.07),_0_2px_4px_rgba(0,0,0,0.05)] dark:bg-zinc-800 md:data-[te-sidenav-hidden='false']:translate-x-0`}
+                className={determineSidebarClass()}
                 data-te-sidenav-init
                 data-te-sidenav-mode-breakpoint-over="0"
-                data-te-sidenav-mode-breakpoint-side="sm"
+                data-te-sidenav-mode-breakpoint-side=""
                 data-te-sidenav-hidden="false"
                 data-te-sidenav-color="dark"
+                data-te-sidenav-mode={`${isMobile ? "over" : "side"}`}
                 data-te-sidenav-content="#content"
+
+                // data-te-sidenav-slim={isSidebarSlim}
+                // data-te-sidenav-slim-collapsed={isSidebarSlim}
+
+                onBlur={() => console.log("close")}
 
             >
 
