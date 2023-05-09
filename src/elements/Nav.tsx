@@ -116,7 +116,7 @@ const MyNav: React.FC<props> = ({ children }) => {
         <>
             <nav className={`${isSidebarSlim ? 'sm:pl-20' : 'sm:pl-60 '} sticky left-0 top-0 z-50 w-full bg-white dark:bg-neutral-800`}>
 
-                <div className="px-3">
+                <div className="px-8">
                     <div className="relative flex h-[58px] items-center justify-between">
                         <div className="flex  items-center sm:items-stretch sm:justify-start ">
                             <div className="flex flex-shrink-0 items-center ">
@@ -324,7 +324,7 @@ const MyNav: React.FC<props> = ({ children }) => {
                             </div>
                         </div>
                     </div>
-                    <div className={`text-[#6D6E71] font-bold mx-4 my-4 ${isSidebarSlim ? 'hidden' : ''}`}>
+                    <div className={`text-[#6D6E71] font-bold mx-4 my-4 ${isSidebarSlim ? 'mx-1' : ''}`}>
                         <p>Pages</p>
                     </div>
                     <div data-te-sidenav-link-ref className="w-full">
