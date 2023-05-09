@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import loginImage from "../assets/images/login.png";
 
 function LoginPage() {
-  const [email, setEmail] = useState("test");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState<string | null>();
   const [passwordError, setPasswordError] = useState<string | null>();
@@ -79,6 +79,15 @@ function LoginPage() {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     // simulate login validation
+    if (email.length == 0) {
+      setEmailError("Email Required");
+      return;
+    }
+
+    if (password.length == 0) {
+      setPasswordError("Password required");
+      return;
+    }
     if (!emailError && !passwordError) {
       Cookie.set("isLoggedIn", "true");
       return navigate("/dashboard");
