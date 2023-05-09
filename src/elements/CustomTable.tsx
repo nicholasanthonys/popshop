@@ -41,7 +41,7 @@ const CustomTable: React.FC = () => {
     useEffect(() => {
         const getData = async () => {
             try {
-                // // mock data to prevent rate limiting from coingecko
+                // mock data to prevent rate limiting from coingecko
                 // const response = {
                 //     data: mockdata
                 // }
