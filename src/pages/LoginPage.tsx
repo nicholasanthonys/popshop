@@ -97,6 +97,18 @@ function LoginPage() {
         <div className="sm:grid sm:grid-cols-2 sm:gap-60  sm:px-20 lg:px-32">
           <div className="hidden sm:block sm:w-[400px] lg:w-[473px] pt-16">
             <img src={loginImage} className='login image' />
+
+            <div className="flex justify-center items-center gap-2 mt-20">
+              <div className='rounded-md bg-[#2F68FF] w-12 h-2'>
+              </div>
+              <div className='rounded-full bg-[#B5B5B5] w-2 h-2'>
+              </div>
+              <div className='rounded-full bg-[#B5B5B5] w-2 h-2'>
+              </div>
+              <div className='rounded-full bg-[#B5B5B5] w-2 h-2'>
+              </div>
+
+            </div>
           </div>
           <div className='sm:cols-span-1'>
             <h3 className='hidden sm:block font-semibold text-[26px] leading-[39px]'> Sign In </h3>
