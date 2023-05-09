@@ -25,9 +25,7 @@ const MyNav: React.FC<props> = ({ children }) => {
   useEffect(() => {
     initTE({ Sidenav, Ripple, Dropdown, Modal });
     document.getElementById("hamburger")?.addEventListener("click", () => {
-      console.log("clicked");
       const instance = Sidenav.getInstance(document.getElementById("sidebar"));
-      console.log("hamburger instance : ", instance);
       instance.toggle();
     });
   }, []);
@@ -37,11 +35,9 @@ const MyNav: React.FC<props> = ({ children }) => {
       if (window.innerWidth < 640) {
         initTE({ Sidenav, Ripple, Dropdown, Modal });
         document.getElementById("hamburger")?.addEventListener("click", () => {
-          console.log("clicked");
           const instance = Sidenav.getInstance(
             document.getElementById("sidebar")
           );
-          console.log("hamburger instance : ", instance);
           instance.toggle();
         });
 
@@ -72,7 +68,6 @@ const MyNav: React.FC<props> = ({ children }) => {
   const determineSidebarClass = () => {
     let className = `fixed left-0 top-0 z-[1035] h-screen sm:!h-[86vh]  sm:overflow-hidden bg-white shadow-[0_4px_12px_0_rgba(0,0,0,0.07),_0_2px_4px_rgba(0,0,0,0.05)] dark:bg-zinc-800 md:data-[te-sidenav-hidden='false']:translate-x-0`;
     if (!isMobile) {
-      console.log("not mobile");
       if (isSidebarSlim) {
         className += " !w-[77px]";
       } else {
