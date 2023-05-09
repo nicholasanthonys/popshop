@@ -30,7 +30,7 @@ const AccountContent: React.FC = () => {
                 </div>
                 <div>
                     <p className="text-sm font-medium">Deny Septian</p>
-                    <p className="text-[#3E76FF] text-xs font-medium">ID : COSIRI01021220130139</p>
+                    <p className={`${currentTheme == 'green' ? 'text-[#6EB659]': 'text-[#3E76FF]' } text-xs font-medium`}>ID : COSIRI01021220130139</p>
 
                 </div>
             </div>
