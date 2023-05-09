@@ -1,5 +1,5 @@
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Collapse, Ripple,
     initTE,
@@ -40,11 +40,13 @@ function formatCurrentPrice(num: number): string {
 
 
 const CollapsibleRow: React.FC<Props> = ({ className, name, logo, id, currentPrice, marketCap, isCollapsed, onCollapse, idx }) => {
-    initTE({ Collapse, Ripple });
+    useEffect(() => {
+        initTE({ Collapse, Ripple });
+    }, []);
     return (
         <div className={className}>
             <div className="flex items-center"
-    
+
                 onClick={() => onCollapse(idx)}
             >
                 <div className="flex flex-none w-8 items-center sm:hidden">
@@ -65,14 +67,14 @@ const CollapsibleRow: React.FC<Props> = ({ className, name, logo, id, currentPri
                 </div>
 
                 <div className="hidden flex-1 w-32 sm:block">
-                {formatMarketCap(marketCap)}
+                    {formatMarketCap(marketCap)}
                 </div>
 
             </div>
             <div
                 id={"collapse" + id}
                 className={`${isCollapsed ? "visible" : "hidden"} sm:hidden`}
-               
+
             >
                 <div className="px-5 py-4">
                     <p className='text-[#3E76FF] font-semibold'>Current Price</p>
