@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
+import { ExclamationTriangleIcon } from '@heroicons/react/24/solid'
 
 
 interface Props {
@@ -64,16 +65,22 @@ const InputField: React.FC<Props> = ({ label, placeholder, value, isPassword, sh
             className="absolute bottom-0 top-0 right-0 px-3"
           >
             {isTextVisible ? (
-              <EyeSlashIcon className="h-5 w-5 text-[#3E76FF]" />
+              <EyeSlashIcon className={`h-5 w-5 ${error ? 'text-[#EA0000]' : 'text-[#3E76FF]'}`} />
             ) : (
-              <EyeIcon className="h-5 w-5 text-[#3E76FF]" />
+              <EyeIcon className={`h-5 w-5 ${error ? 'text-[#EA0000]' : 'text-[#3E76FF]'}`} />
             )}
           </button> : <div />
         }
 
       </div>
 
-      {error && <p className="text-red-500">{error}</p>}
+      {error ? <div className='flex justify-start items-center gap-4 mt-6'>
+        <ExclamationTriangleIcon className='text-red-500 w-8 h-8' />
+
+        <p className="text-[#EA0000]">{error}</p>
+
+      </div> : <></>}
+
     </div >
   );
 };
