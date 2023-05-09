@@ -25,7 +25,7 @@ interface props {
     children?: React.ReactNode
 }
 const MyNav: React.FC<props> = ({ children }) => {
-   
+
 
     const [isDropdownOpen, setIsDropdownAccountOpen] = useState(false)
     const [isSidebarSlim, setIsSidebarSlim] = useState(false)
@@ -35,11 +35,11 @@ const MyNav: React.FC<props> = ({ children }) => {
 
     useEffect(() => {
         initTE({ Sidenav, Ripple, Dropdown, Modal });
-      }, []);
-      
+    }, []);
+
 
     const toggleSlipSidebar = () => {
-       
+
         setIsSidebarSlim(!isSidebarSlim)
     }
 
@@ -220,11 +220,9 @@ const MyNav: React.FC<props> = ({ children }) => {
 
                     }
                 </div>
-                <div data-te-sidenav-link-ref>
-
-
-                    <div className="mx-2 py-4 px-2 relative" >
-                        <div className={`flex items-center gap-2  rounded-lg py-2 ${currentTheme == "green" ? 'hover:bg-[#EDFFE8]' : 'hover:bg-[#EFF8FF]'}`}>
+                <div className="px-2">
+                    <div className="w-full" data-te-sidenav-link-ref>
+                        <div className={`flex items-center gap-2 ${isSidebarSlim ? 'px-2' : 'px-4'} rounded-lg py-2 ${currentTheme == "green" ? 'hover:bg-[#EDFFE8]' : 'hover:bg-[#EFF8FF]'} w-full`}>
                             <div className={`w-[40px] h-[40px] flex justify-center items-center rounded-lg ${currentTheme == "green" ? 'bg-[#6EB659]' : 'bg-[#3E76FF]'}`}>
                                 <div >
                                     <div className="flex justify-between gap-1 mb-1">
@@ -249,9 +247,8 @@ const MyNav: React.FC<props> = ({ children }) => {
                     <div className={`text-[#6D6E71] font-bold mx-4 my-4 ${isSidebarSlim ? 'hidden' : ''}`}>
                         <p>Pages</p>
                     </div>
-                    <div data-te-sidenav-link-ref>
-
-                        <div className="flex items-center gap-2 hover:bg-[#EFF8FF] rounded-lg px-4 py-2">
+                    <div data-te-sidenav-link-ref className="w-full">
+                        <div className="flex items-center gap-2 hover:bg-[#EFF8FF] rounded-lg px-4 py-2 w-full">
                             <div className='w-[40px] h-[40px]  flex justify-center items-center rounded-lg shadow'>
                                 <ChatBubbleOvalLeftEllipsisIcon className="text-gray-400 w-6" />
 
