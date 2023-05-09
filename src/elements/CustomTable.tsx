@@ -128,7 +128,7 @@ const CustomTable: React.FC = () => {
 
             <div className="rounded-lg overflow-hidden shadow-lg w-[340px] sm:w-full absolute top-2 left-0 bg-white">
 
-                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <div className="relative overflow-x-auto shadow-sm sm:rounded-lg">
                     <div className="flex items-center justify-between py-4 px-2 sm:px-8  ">
 
                         <p className={`${isSearchExpand ? "hidden" : "visible"} sm:text-lg text-[#323A46]`}>Cryptocurrency </p>
@@ -175,10 +175,9 @@ const CustomTable: React.FC = () => {
                         <CollapsibleRow name={item.name} onCollapse={onCollapse} logo={item.image} id={item.id} key={item.id} currentPrice={item.current_price} marketCap={item.market_cap} isCollapsed={item.isCollapsed} className={`p-3.5 border ${currentTheme == 'green' ? 'hover:bg-[#EDFFE8]' : 'hover:bg-[#EFF8FF]'} border-[#EFF4FF]  sm:px-8`} idx={index} />
                     ))}
                 </div>
-                <div className={`flex justify-between items-center text-xs my-2 font-semibold sm:justify-end sm:gap-32 ${currentTheme == 'green' ? 'text-[#90C781]' : 'text-[#3E76FF]'}`}>
+                <div className={`flex justify-between items-center text-xs my-4 font-semibold sm:justify-end sm:gap-32 ${currentTheme == 'green' ? 'text-[#90C781]' : 'text-[#3E76FF]'}`}>
                     <div className='flex justify-between'>
                         Rows per page:
-
                         <div className="relative sm:ml-2" data-te-dropdown-position="dropup">
                             <button
                                 className="flex items-center"
