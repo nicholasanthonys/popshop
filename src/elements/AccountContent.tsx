@@ -89,7 +89,7 @@ const AccountContent: React.FC = () => {
                 </div>
             </button>
 
-            <button className="w-full flex gap-4 px-2 py-4 shadow-sm rounded-lg items-center focus:border-[#7FC45F] hover:border-[#7FC45F]"
+            <button className="w-full flex gap-4 px-2 py-4 mt-4 shadow-sm rounded-lg items-center focus:border-[#7FC45F] hover:border-[#7FC45F] hover:bg-red-300"
                 onClick={logOut}
             >
                 <div className="border rounded-md w-6 h-8 bg-red-400 relative">
