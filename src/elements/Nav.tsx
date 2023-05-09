@@ -11,7 +11,7 @@ import account from '../assets/images/account.png';
 import bell from '../assets/images/bell.png';
 import needhelp from '../assets/images/needhelp.png';
 import {
-    ChatBubbleOvalLeftEllipsisIcon,
+    Cog6ToothIcon,
     ChevronDownIcon
 } from "@heroicons/react/24/solid"
 import {
@@ -94,7 +94,7 @@ const MyNav: React.FC<props> = ({ children }) => {
     }
 
     const determineSidebarClass = () => {
-        let className = `fixed left-0 top-0 z-[1035] h-screen sm:h-[86vh]  sm:overflow-hidden bg-white shadow-[0_4px_12px_0_rgba(0,0,0,0.07),_0_2px_4px_rgba(0,0,0,0.05)] dark:bg-zinc-800 md:data-[te-sidenav-hidden='false']:translate-x-0`
+        let className = `fixed left-0 top-0 z-[1035] h-screen sm:!h-[86vh]  sm:overflow-hidden bg-white shadow-[0_4px_12px_0_rgba(0,0,0,0.07),_0_2px_4px_rgba(0,0,0,0.05)] dark:bg-zinc-800 md:data-[te-sidenav-hidden='false']:translate-x-0`
         if (!isMobile) {
             console.log("not mobile")
             if (isSidebarSlim) {
@@ -114,7 +114,7 @@ const MyNav: React.FC<props> = ({ children }) => {
 
     return (
         <>
-            <nav className={`${isSidebarSlim ? 'sm:pl-20' : 'sm:pl-60 '} sticky left-0 top-0 z-50 w-full bg-white dark:bg-neutral-800`}>
+            <nav className={`${isSidebarSlim ? 'sm:pl-20' : 'sm:pl-60 '} sticky left-0 top-0 z-50 w-full dark:bg-neutral-800 bg-blue-[#F8F9FA]`}>
 
                 <div className="px-8">
                     <div className="relative flex h-[58px] items-center justify-between">
@@ -277,23 +277,15 @@ const MyNav: React.FC<props> = ({ children }) => {
                 data-te-sidenav-color="dark"
                 data-te-sidenav-mode={`${isMobile ? "over" : "side"}`}
                 data-te-sidenav-content="#content"
-
-                // data-te-sidenav-slim={isSidebarSlim}
-                // data-te-sidenav-slim-collapsed={isSidebarSlim}
-
-                onBlur={() => console.log("close")}
-
             >
 
-                <div className="flex justify-center">
+                <div className="flex justify-center my-8">
                     {isSidebarSlim ?
 
                         <div className="w-36 flex justify-center " >
                             <img src={logoSlim} alt="logo" />
                         </div>
-
                         :
-
                         <div className="w-36 " >
                             <img src={logo} alt="logo" />
                         </div>
@@ -324,13 +316,13 @@ const MyNav: React.FC<props> = ({ children }) => {
                             </div>
                         </div>
                     </div>
-                    <div className={`text-[#6D6E71] font-bold mx-4 my-4 ${isSidebarSlim ? 'mx-1' : ''}`}>
+                    <div className={`text-[#6D6E71] font-bold mx-2 my-4 ${isSidebarSlim ? 'mx-1' : ''}`}>
                         <p>Pages</p>
                     </div>
                     <div data-te-sidenav-link-ref className="w-full">
-                        <div className="flex items-center gap-2 hover:bg-[#EFF8FF] rounded-lg px-4 py-2 w-full">
+                        <div className={`flex items-center gap-2 hover:bg-[#EFF8FF] rounded-lg ${isSidebarSlim ? '' : 'mx-2'} px-2 py-2 w-full`}>
                             <div className='w-[40px] h-[40px]  flex justify-center items-center rounded-lg shadow'>
-                                <ChatBubbleOvalLeftEllipsisIcon className="text-gray-400 w-6" />
+                                <Cog6ToothIcon className="text-gray-400 w-6" />
 
                             </div>
                             <div className={`text-[#6D6E71] font-medium ${isSidebarSlim ? 'hidden' : ''}`}>
@@ -348,7 +340,7 @@ const MyNav: React.FC<props> = ({ children }) => {
                                 <img src={needhelp} />
                             </div>
 
-                            <div className={`absolute bg-gradient-to-r  opacity-[0.4] w-[180px] h-[166px] top-0 z-10 flex justify-center py-4 rounded-lg ${currentTheme == "green" ? 'from-green-400 to-green-900' : 'from-blue-400 to-blue-900'}`}>
+                            <div className={`absolute   opacity-[0.4] w-[180px] h-[166px] top-0 z-10 flex justify-center py-4 rounded-lg ${currentTheme == "green" ? 'bg-[#6EB659]' : 'bg-gradient-to-r from-blue-400 to-blue-900'}`}>
                                 <div className="text-center w-full px-4">
                                     <div className="flex justify-center mb-4">
                                         <div className="rounded-md bg-white flex justify-center items-center w-8 h-8">
